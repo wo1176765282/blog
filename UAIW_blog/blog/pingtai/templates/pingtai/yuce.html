@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>房价预测</title>
+</head>
+<body>
+<form action="{% url 'pingtai:yuce' %}" method="post">
+    {% csrf_token %}
+    请选择区：
+    <select name="qu" id="qu">
+        <option value="chaoyang">朝阳</option>
+        <option value="haiidan">海淀</option>
+        <option value="fengtai">丰台</option>
+        <option value="xicheng">西城</option>
+        <option value="dongcheng">东城</option>
+        <option value="shijingshan">石景山</option>
+    </select><br>
+    请选择：
+    <select name="shi" id="shi">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select>室
+    <select name="ting" id="ting">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+    </select>厅
+    <br>
+    请输入大小：
+    <input type="text" name="area"> <br>
+    请选择层：
+    <select name="ceng" id="ceng">
+        <option value="low">低层</option>
+        <option value="middle">中层</option>
+        <option value="high">高层</option>
+    </select>
+    <br>
+    请选择是否临近地铁:
+    <input type="radio" checked="checked" name="subway" value="1">临近
+    <input type="radio" name="subway" value="0">不临近
+    <br>
+    请选择是否学区房:
+    <input type="radio" checked="checked" name="school" value="1">是
+    <input type="radio" name="school" value="0">否
+    <br>
+    <input type="submit" value="提交">
+    {{pres}}
+</form>
+</body>
+
+</html>

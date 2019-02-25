@@ -1,0 +1,85 @@
+{% extends "./base.html" %}
+
+{% block main %}
+<form id="form" action="" method="post" enctype="multipart/form-data">
+    <!--上传文件-->
+    {% csrf_token %}
+    <div class="form-group">
+        <img src="\media\{{ form.img }}" alt="" width="100"height="100"  id="img">
+        <label for="exampleFormControlFile1">上传头像</label>
+        <input type="file" class="form-control-file" id="exampleFormControlFile1" name="img">
+    </div>
+</form>
+
+<form action="{% url 'selfadmin:EditPersonal' %}" method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">修改个人信息</div>
+                </div>
+                <div class="card-body">
+
+                    <div class="form-group has-success">
+                        <label for="successInput">真实姓名</label>
+                        <input type="text" id="successInput" value="{{ form.userinfo.realname }}" class="form-control" name="realname">
+                    </div>
+                    <!--密码-->
+                    <div class="form-group">
+                        <label for="password">密码</label>
+                        <input type="password" class="form-control" id="password" placeholder="请输入新密码" name="password" value="{{ form.password }}">
+                    </div>
+                    <div class="form-group has-success">
+                        <label for="successInput">联系电话</label>
+                        <input type="text" id="successInput" value="{{ form.tel }}" class="form-control" name="tel">
+                    </div>
+                    <!--Email-->
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter Email" value="{{ form.email }}" name="email">
+                    </div>
+                    <div class="form-group has-success">
+                        <label for="successInput">职业</label>
+                        <input type="text" id="successInput" value="{{ form.userinfo.position }}" class="form-control" name="position">
+                    </div>
+                    <div class="form-group has-success">
+                        <label for="successInput">公司</label>
+                        <input type="text" id="successInput" value="{{ form.userinfo.company }}" class="form-control" name="company">
+                    </div>
+                    <div class="form-group has-success">
+                        <label for="successInput">爱好</label>
+                        <input type="text" id="successInput" value="{{ form.userinfo.hobby }}" class="form-control" name="hobby">
+                    </div>
+                </div>
+                <div class="card-action">
+                    <button class="btn btn-success">提交</button>
+                    <!--<button class="btn btn-danger">Cancel</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% load static %}
+<script src="{% static 'selfadmin/assets/js/core/jquery.3.2.1.min.js' %}"></script>
+<script>
+    let img = $("#exampleFormControlFile1")
+    img.on('change',function () {
+            alert(1)
+        if (img.val()) {
+            $.ajax({
+                url:"{% url 'selfadmin:upload' %}",
+                type:"post",
+                processData:false,
+                contentType:false,
+                data:new FormData($("#form")[0]),
+                success:function (e) {
+                    alert(e)
+                    $("#img").attr('src',e.src)
+                }
+            })
+        }
+    })
+</script>
+{% endblock %}

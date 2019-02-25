@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>个人首页</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'self/layui/css/layui.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'self/css/main.css' %}">
+    <!--加载meta IE兼容文件-->
+    <!--[if lt IE 9]>
+    <script src="{% static 'self/js/html5shiv.js' %}"></script>
+    <script src="{% static 'self/js/1.3.0/respond.min.js' %}"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="header">
+    <div class="menu-btn">
+        <div class="menu"></div>
+    </div>
+    <h1 class="logo">
+        <a href="index.html">
+            <span>MYBLOG</span>
+            <img src="{% static 'self/img/logo.png' %}">
+        </a>
+    </h1>
+    <div class="nav">
+        <a href="{% url 'pingtai:index' %}" class="active">首页</a>
+        <a href="{% url 'self:liuyan' %}">留言</a>
+        <a href="{% url 'self:about' %}">关于</a>
+        <a href="{% url 'selfadmin:personal' %}">个人中心</a>
+    </div>
+    <ul class="layui-nav header-down-nav">
+        <li class="layui-nav-item"><a href="{% url 'pingtai:index' %}" class="active">首页</a></li>
+        <li class="layui-nav-item"><a href="{% url 'self:liuyan' %}">留言</a></li>
+        <li class="layui-nav-item"><a href="{% url 'self:about' %}">关于</a></li>
+        <li class="layui-nav-item"><a href="{% url 'selfadmin:personal' %}">个人中心</a></li>
+    </ul>
+    <p class="welcome-text">
+        <span class="name" style="margin: 0 5px">欢迎回来,{{ username }}</span>
+        <a href="{% url 'userauth:logout' %}">退出</a>
+    </p>
+</div>
+
+<div class="banner">
+    <div class="cont w1000">
+        <div class="title">
+            <h3>MY<br />BLOG</h3>
+            <h4>well-balanced heart</h4>
+        </div>
+        <div class="amount">
+            <p><span class="text">访问量</span><span class="access">1000</span></p>
+            <p><span class="text">日志</span><span class="daily-record">1000</span></p>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="cont w1000">
+        {% for item in data %}
+        <div class="list-item">
+            <div class="item">
+                <div class="layui-fluid">
+
+                    <div class="layui-row">
+                        <div class="layui-col-xs12 layui-col-sm4 layui-col-md5">
+                            <div class="img"><img src="{% static 'self/img/sy_img1.jpg' %}" alt=""></div>
+                        </div>
+                        <div class="layui-col-xs12 layui-col-sm8 layui-col-md7">
+                            <div class="item-cont">
+                                <h3><a href="/self/{{ item.id }}/detail/" style="font-size: 24px;
+    margin: 20px 0;">{{ item.title }}</a></h3>
+                                <p>{{ item.con | striptags | slice:"0:100" }}...</p>
+                                <a href="/self/{{ item.id }}/detail/" class="go-icon"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div id="demo" style="text-align: center;"></div>
+    </div>
+</div>
+
+<div class="footer-wrap">
+    <div class="footer w1000">
+        <div class="qrcode">
+            <img src="{% static 'self/img/erweima.jpg' %}">
+        </div>
+        <div class="practice-mode">
+            <img src="{% static 'self/img/down_img.jpg' %}">
+            <div class="text">
+                <h4 class="title">我的联系方式</h4>
+                <p>微信<span class="WeChat">1234567890</span></p>
+                <p>邮箱<span class="email">1234567890@qq.com</span></p>
+                <p>More Templates</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'self/layui/layui.js' %}"></script>
+
+</body>
+</html>

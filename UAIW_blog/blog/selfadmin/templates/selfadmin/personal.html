@@ -1,0 +1,63 @@
+{% extends "./base.html" %}
+
+<!--{% block title %}个人信息{% endblock %}-->
+
+{% block main %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">个人信息</div>
+            </div>
+            <div class="card-body">
+                <table class="table table-typo">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <p>姓名</p>
+                        </td>
+                        <td><span>{{ form.userinfo.realname }}</span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>爱好</p>
+                        </td>
+                        <td><p>{{ form.userinfo.hobby }}</p></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>职业</p>
+                        </td>
+                        <td><p class="text-primary">{{ form.userinfo.position }}</p></span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>公司</p>
+                        </td>
+                        <td><p class="text-info">{{ form.userinfo.company }}</p></span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>联系电话</p>
+                        </td>
+                        <td><p class="text-success">{{ form.tel }}</p></span></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>email</p>
+                        </td>
+                        <td><p class="text-warning">{{ form.email }}</p></span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                <hr>
+                <a class="btn btn-info" href="{% url 'selfadmin:EditPersonal' %}">修改</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

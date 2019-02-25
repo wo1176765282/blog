@@ -1,0 +1,160 @@
+{% extends "./base.html" %}
+
+{% block main %}
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">我的博客</div>
+    </div>
+    <!--筛选-->
+    <div style="display: flex;justify-content: space-between;width: 800px;">
+        <div class="form-group" style="width: 25%;">
+            <label for="c">分类</label>
+            <select class="form-control input-square" id="c" >
+                <option value="">---------</option>
+                {% for i in category %}
+                    {% if i.id == c1 %}
+                    <option value="{{i.id}}" selected="selected">{{i.name}}</option>
+                    {% else %}
+                    <option value="{{i.id}}">{{i.name}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group" style="width: 25%;">
+            <label for="k">关键字</label>
+            <select class="form-control input-square" id="k">
+                <option value="">---------</option>
+                {% for i in keyword %}
+                    {% if i.id == k1 %}
+                    <option value="{{i.id}}" selected="selected">{{i.name}}</option>
+                    {% else %}
+                    <option value="{{i.id}}">{{i.name}}</option>
+                    {% endif %}
+                <!--<option value="{{i.id}}">{{i.name}}</option>-->
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group" style="width: 25%;">
+            <label for="status">发布状态</label>
+            <select class="form-control input-square" id="status">
+                <option value="">---------</option>
+                {% if s1 %}
+                    <option value="True" selected="selected">已发布</option>
+                    <option value="False">未发布</option>
+                {% elif s1 == 1 %}
+                    <option value="True" selected="selected">已发布</option>
+                    <option value="False">未发布</option>
+                {% else %}
+                    <option value="True">已发布</option>
+                    <option value="False">未发布</option>
+                {% endif %}
+            </select>
+        </div>
+    </div>
+
+    <!--s数据-->
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="" id="check">
+                        <span class="form-check-sign">全选</span>
+                    </label>
+                </th>
+                <th scope="col">序号</th>
+                <th scope="col">标题</th>
+                <th scope="col">分类</th>
+                <th scope="col">关键字</th>
+                <th scope="col">更新时间</th>
+                <th scope="col">发布状态</th>
+                <th scope="col">浏览量</th>
+                <th scope="col">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in articles %}
+            <tr>
+                <td>
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" value="">
+                        <span class="form-check-sign">选中</span>
+                    </label>
+                </td>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.c }}</td>
+                <td>{{ item.k }}</td>
+                <td>{{ item.u_time }}</td>
+                <td>
+                    {% if item.status %} <span style="color: green;">√</span>
+                    {% else %} <span style="color:red;">×</span>
+                    {% endif %}
+                </td>
+                <td>{{ item.look }}</td>
+                <td>
+                    <a href="" class="btn btn-success">编辑</a>
+                    <a href="" class="btn btn-danger">删除</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!--分页-->
+    <div class="card-body" style="width: 200px;margin: auto">
+        <p class="demo">
+        <ul class="pagination pg-primary">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+        </p>
+    </div>
+
+
+</div>
+
+{% load static %}
+<script src="{% static 'selfadmin/assets/js/core/jquery.3.2.1.min.js' %}"></script>
+
+<script>
+    // console.log(1);
+    $("#c").on("change",function () {
+        let href = location.href
+        location.href=href+'&c1='+$("#c").val()
+    })
+    $("#k").on("change",function () {
+        let href = location.href
+        location.href=href+'&k1='+$("#k").val()
+    })
+    $("#status").on("change",function () {
+        let href = location.href
+        location.href=href+'&status1='+$("#status").val()
+    })
+
+    //    全选
+    $(".form-check-label:first").on("click",function () {
+        let isChecked = $("#check").prop('checked')
+        if (isChecked){
+            $("input[type='checkbox']").prop("checked",true);
+        } else {
+            $("input[type='checkbox']").prop("checked",false);
+        }
+    })
+</script>
+{% endblock %}

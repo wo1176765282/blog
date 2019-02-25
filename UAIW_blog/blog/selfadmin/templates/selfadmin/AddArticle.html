@@ -1,0 +1,67 @@
+{% extends "./base.html" %}
+
+{% block main %}
+<form action="{% url 'selfadmin:AddArticle' %}" method="post">
+    {% csrf_token %}
+    <div class="" style="width: 1000px;">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">写博客</div>
+            </div>
+            <div class="card-body">
+
+                <!--分类-->
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">{{ forms.c.label }}</label>
+                    {{ forms.c }}
+                    <!--<select class="form-control" id="exampleFormControlSelect1">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>-->
+                </div>
+                <!--关键字-->
+                <div class="form-group">
+                    <label for="exampleFormControlSelect2">{{ forms.k.label }}</label>
+                    {{ forms.k }}
+                    <!--<select class="form-control" id="exampleFormControlSelect1">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>-->
+                </div>
+
+                <!--标题-->
+                <div class="form-group form-inline">
+                    <label for="inlineinput" class="col-md-3 col-form-label">{{ forms.title.label }}</label>
+                    <!--<div class="col-md-9 p-0">
+                        <input type="text" class="form-control input-full" id="inlineinput" placeholder="">
+                    </div>-->
+                    {{ forms.title }}
+                </div>
+
+                <div class="form-group">
+                    <label for="comment">{{ forms.con.label }}</label>
+                    <!--<textarea class="form-control" id="comment" rows="5">
+
+												</textarea>-->
+                    {{ forms.con }}
+                </div>
+
+            </div>
+            <div class="card-action">
+                <button class="btn btn-success">提交</button>
+                <!--<button class="btn btn-danger">Canc</button>-->
+            </div>
+        </div>
+    </div>
+
+</form>
+{% load static %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+{% endblock %}
